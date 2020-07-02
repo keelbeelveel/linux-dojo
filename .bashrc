@@ -118,4 +118,8 @@ export TERM=xterm-256color
 
 export PS1="\[\e[1;36m\][\u]\[\e[m\]\[\e[1;31m\][\W]\[\e[m\] $ "
 
+function editrc { vim ~/.bashrc; source ~/.bashrc; cp ~/.bashrc /mnt/c/Users/kbelv/OneDrive/configs/.bashrc; }
+
+export -f editrc
+
 cd ~
