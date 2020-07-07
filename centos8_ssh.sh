@@ -10,4 +10,6 @@ echo "HostName 68.36.137.232" >> ~/.ssh/config;
 
 view ~/.ssh/config;
 
+echo -e "You can now log into the Centos8 using \\033[38;5;166mssh $bld_uname@centos8\\033[0m\nThis script is self deleting. Goodbye.\n "
+
 rm -- $0;
