@@ -1,4 +1,4 @@
-" A sample .vimrc. Last revised: Wed July 08, 2020 @ 09:15:58 EDT
+"A sample .vimrc. Last revised: Wed July 08, 2020 @ 09:53:32 EDT
 let fancy_symbols_enabled = 1
 set encoding=utf-8
 set hidden
@@ -785,48 +785,52 @@ set splitright
 set textwidth=0
 set mouse=a
 
-" Date Time stuff"
-" If buffer modified, update any 'Last modified: ' in the first 20 lines.
-" 'Last modified: ' can have up to 10 characters before (they are retained).
-" Restores cursor and window position using save_cursor variable.
+" Automatic Timestamp scripts:
 function! LastModified()
   if &modified
     let save_cursor = getpos(".")
     let n = min([20, line("$")])
-    keepjumps exe '1,' . n . 's#^\(.\{,10}modified: \).*#\1' .
-          \ strftime('%a %B %d, %Y @ %I:%M:%S %Z') . '#e'
+    keepjumps exe '1.' . n . 's#^\(.\{,10}modified: \).*#\1' . 
+        \ strftime('%a %B %d, %Y @ %I:%M:%S %Z') . '#e'
     call histdel('search', -1)
     call setpos('.', save_cursor)
   endif
-endfun
-autocmd BufWritePre * call LastModified()
+endfun " aww... fun's over?
 
-" If buffer modified, update any 'Last modified: ' in the first 20 lines.
-" 'Last modified: ' can have up to 10 characters before (they are retained).
-" Restores cursor and window position using save_cursor variable.
 function! LastRevised()
   if &modified
     let save_cursor = getpos(".")
     let n = min([40, line("$")])
-    keepjumps exe '1,' . n . 's#^\(.\{,30}revised: \).*#\1' .
-          \ strftime('%a %B %d, %Y @ %I:%M:%S %Z') . '#e'
+    keepjumps exe '1.' . n . 's#^\(.\{,30}revised: \).*#\1' .
+        \ strftime('%a %B %d, %Y @ %I:%M:%S %Z') . '#e'
     call histdel('search', -1)
     call setpos('.', save_cursor)
   endif
-endfun
-autocmd BufWritePre * call LastRevised()
+endfun " aww... fun's over?
 
-" If buffer modified, update any 'Last modified: ' in the first 20 lines.
-" 'Last modified: ' can have up to 10 characters before (they are retained).
-" Restores cursor and window position using save_cursor variable.
 function! LastBuilt()
   if &modified
     let save_cursor = getpos(".")
     let n = min([40, line("$")])
-    keepjumps exe '1,' . n . 's#^\(.\{,30}built: \).*#\1' .
-          \ strftime('%a %B %d, %Y @ %I:%M:%S %Z') . '#e'
+    keepjumps exe '1.' . n . 's#^\(.\{,30}built: \).*#\1' .
+        \ strftime('%a %B %d, %Y @ %I:%M:%S %Z') . '#e'
     call histdel('search', -1)
     call setpos('.', save_cursor)
   endif
-endfun
+endfun " aww... fun's over?
+
+" NOTE: Use quotes to comment out
+" and disable these functions here!
+autocmd BufWritePre * call LastModified()
+autocmd BufWritePre * call LastRevised()
 autocmd BufWritePre * call LastBuilt()
+
+" NOTE: Each function has slightly different parameters.
+" NOTE: item_A : Number of lines scanned for timestamp tag
+" NOTE: item_B : Max # of Characters which can appear before tag
+" | Tag Type   | item_A  | item_B  |
+" | modified() | 20Lines | 10chars |
+" | revised()  | 40Lines | 30chars |
+" | built()    | 40Lines | 30chars |
+" Find and replace ^^ these ^^ integers in the functions above
+" To fine-tune the settings.
