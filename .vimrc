@@ -1,3 +1,4 @@
+" A sample .vimrc. Last revised: Wed July 08, 2020 @ 09:15:58 EDT
 let fancy_symbols_enabled = 1
 set encoding=utf-8
 set hidden
